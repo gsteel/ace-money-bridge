@@ -17,6 +17,7 @@
         "ext-json": "*",
         "moneyphp/money": "^3.2",
         "zendframework/zend-form": "^2.14",
+        "zendframework/zend-hydrator": "^2",
         "zendframework/zend-i18n": "^2.9"
     },
     "require-dev" : {
