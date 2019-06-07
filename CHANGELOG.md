@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 0.2.0 - TBD
+
+### Added
+
+- [#1](https://github.com/gsteel/ace-money-bridge/pull/1) Add Filter for Converting Currency Codes into Currency Instances
+
+### Changed
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Nothing.
+
 ## 0.1.0 - 2019-06-05
 
 ### Added
