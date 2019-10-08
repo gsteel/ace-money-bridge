@@ -8,6 +8,7 @@ use ACE\Money\InputFilter\MoneyInputFilter;
 use ACE\Money\Validator\CurrencyValidator;
 use ACETest\Money\TestCase;
 use Zend\Hydrator\HydratorPluginManager;
+use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterPluginManager;
 use Zend\Validator\Regex;
 use function json_encode;
@@ -96,5 +97,53 @@ class MoneyInputFilterTest extends TestCase
         $messages = $this->filter->getMessages();
         $this->assertArrayHasKey($elementName, $messages);
         $this->assertArrayHasKey($errorKey, $messages[$elementName], json_encode($messages, JSON_PRETTY_PRINT));
+    }
+
+    private function generateParentInputFilter() : InputFilter
+    {
+        $parentInputFilter = new InputFilter();
+        $parentInputFilter->add([
+            'name' => 'test',
+            'required' => true,
+        ]);
+        $parentInputFilter->add($this->filter, 'money');
+        return $parentInputFilter;
+    }
+
+    public function testNestedMoneyFilterIsRequiredByDefault() : void
+    {
+        $parentInputFilter = $this->generateParentInputFilter();
+        $this->assertTrue($this->filter->isRequired());
+        $parentInputFilter->setData([
+            'test' => null,
+            'money' => [
+                'currency' => null,
+                'amount' => null,
+            ],
+        ]);
+        $this->assertFalse($parentInputFilter->isValid());
+        $messages = $parentInputFilter->getMessages();
+        $this->assertArrayHasKey('test', $messages);
+        $this->assertArrayHasKey('money', $messages);
+        $this->assertArrayHasKey('currency', $messages['money']);
+        $this->assertArrayHasKey('amount', $messages['money']);
+    }
+
+    public function testNestedMoneyFilterCanBeOptional() : void
+    {
+        $parentInputFilter = $this->generateParentInputFilter();
+        $this->filter->setRequired(false);
+        $this->assertFalse($this->filter->isRequired());
+        $parentInputFilter->setData([
+            'test' => 'Foo',
+            'money' => [
+                'currency' => null,
+                'amount' => null,
+            ],
+        ]);
+        $this->assertTrue($parentInputFilter->isValid());
+        $messages = $parentInputFilter->getMessages();
+        $this->assertArrayNotHasKey('test', $messages);
+        $this->assertArrayNotHasKey('money', $messages);
     }
 }
