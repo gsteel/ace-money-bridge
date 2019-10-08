@@ -8,7 +8,7 @@ use Zend\Filter;
 use Zend\InputFilter\InputFilter;
 use Zend\Validator\Regex;
 
-class MoneyInputFilter extends InputFilter
+class MoneyInputFilter extends RequireableInputFilter
 {
     public function init() : void
     {
