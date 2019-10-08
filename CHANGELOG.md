@@ -2,7 +2,32 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 0.2.0 - TBD
+## 0.3.0 - TBD
+
+### Added
+
+- [#2](https://github.com/gsteel/ace-money-bridge/pull/2) Adds `RequireableInputFilter` enabling an entire input filter
+to be optional. Input filters that are not `required` will be considered valid if all of the composed inputs are empty.
+Any non empty inputs will trigger normal validation.
+
+### Changed
+
+- [#2](https://github.com/gsteel/ace-money-bridge/pull/2) Alters the money input filter to extend `RequireableInputFilter`
+so that other input filters composing the `MoneyInputFilter` can choose to make the monetary value optional.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Nothing.
+
+## 0.2.0 - 2019-06-07
 
 ### Added
 
