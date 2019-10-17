@@ -100,4 +100,18 @@ class MoneyFieldsetTest extends TestCase
         $this->assertEquals('ZAR', $moneyProperty->getCurrency()->getCode());
         $this->assertEquals(12345, $moneyProperty->getAmount());
     }
+
+    public function testRetrievalOfCurrencyElement() : void
+    {
+        $fieldset = $this->fieldset();
+        $currency = $fieldset->currencyElement();
+        $this->assertSame('currency', $currency->getName());
+    }
+
+    public function testRetrievalOfAmountElement() : void
+    {
+        $fieldset = $this->fieldset();
+        $amount = $fieldset->amountElement();
+        $this->assertSame('amount', $amount->getName());
+    }
 }
