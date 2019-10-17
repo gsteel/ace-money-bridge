@@ -2,11 +2,33 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 0.5.0 - TBD
+
+### Added
+
+- Nothing.
+
+### Changed
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Nothing.
+
 ## 0.4.0 - 2019-10-17
 
 ### Added
 
-- [#4](https://github.com/gsteel/ace-money-bridge/pull/3) Adds methods to `MoneyFieldset` for retrieving child elements
+- [#4](https://github.com/gsteel/ace-money-bridge/pull/4) Adds methods to `MoneyFieldset` for retrieving child elements
 and makes it possible to configure the currency and amount element options and attributes _(Label for example)_ by
  providing additional options in the option keys 'amount' and 'currency'.
 
