@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 0.4.0 - TBD
+
+### Added
+
+- Nothing.
+
+### Changed
+
+- [#3](https://github.com/gsteel/ace-money-bridge/pull/3) Populates the `MoneyFieldset` with default currency.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Nothing.
+
 ## 0.3.0 - 2019-10-08
 
 ### Added
