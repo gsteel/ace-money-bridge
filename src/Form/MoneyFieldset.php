@@ -28,5 +28,8 @@ class MoneyFieldset extends Fieldset
         $this->setObject(
             new Money(0, $defaultCurrency)
         );
+        $this->populateValues([
+            'currency' => $defaultCurrency->getCode(),
+        ]);
     }
 }
