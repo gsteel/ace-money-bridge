@@ -34,15 +34,21 @@ class MoneyFieldset extends Fieldset
     public function setOptions($options) : self
     {
         parent::setOptions($options);
-        $currencyOptions = $this->getOption('currency');
-        $currencyOptions = $currencyOptions['options'] ?? null;
+        $currencyOptions = $this->getOption('currency')['options'] ?? null;
         if (is_iterable($currencyOptions)) {
             $this->currencyElement()->setOptions($currencyOptions);
         }
-        $amountOptions = $this->getOption('amount');
-        $amountOptions = $amountOptions['options'] ?? null;
+        $currencyAttributes = $this->getOption('currency')['attributes'] ?? null;
+        if (is_iterable($currencyAttributes)) {
+            $this->currencyElement()->setAttributes($currencyAttributes);
+        }
+        $amountOptions = $this->getOption('amount')['options'] ?? null;
         if (is_iterable($amountOptions)) {
             $this->amountElement()->setOptions($amountOptions);
+        }
+        $amountAttributes = $this->getOption('amount')['attributes'] ?? null;
+        if (is_iterable($amountAttributes)) {
+            $this->amountElement()->setAttributes($amountAttributes);
         }
         return $this;
     }
