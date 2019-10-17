@@ -8,6 +8,7 @@ use Money\Currency;
 use Money\Money;
 use Zend\Form\ElementInterface;
 use Zend\Form\Fieldset;
+use function is_iterable;
 
 class MoneyFieldset extends Fieldset
 {
@@ -28,6 +29,22 @@ class MoneyFieldset extends Fieldset
         $this->setObject(
             new Money(0, $defaultCurrency)
         );
+    }
+
+    public function setOptions($options) : self
+    {
+        parent::setOptions($options);
+        $currencyOptions = $this->getOption('currency');
+        $currencyOptions = $currencyOptions['options'] ?? null;
+        if (is_iterable($currencyOptions)) {
+            $this->currencyElement()->setOptions($currencyOptions);
+        }
+        $amountOptions = $this->getOption('amount');
+        $amountOptions = $amountOptions['options'] ?? null;
+        if (is_iterable($amountOptions)) {
+            $this->amountElement()->setOptions($amountOptions);
+        }
+        return $this;
     }
 
     public function currencyElement() : ElementInterface

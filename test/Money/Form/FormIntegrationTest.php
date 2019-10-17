@@ -37,4 +37,34 @@ class FormIntegrationTest extends TestCase
         $this->assertInstanceOf(Money::class, $money);
         $this->assertEquals(100, $money->getAmount());
     }
+
+    public function testElementOptionsAreProvidedToIndividualElements() : void
+    {
+        $container = $this->getContainer();
+        $forms = $container->get('FormElementManager');
+
+        /** @var Form $form */
+        $form = $forms->get(Form::class);
+        $form->add([
+            'name' => 'money',
+            'type' => MoneyFieldset::class,
+            'options' => [
+                'currency' => [
+                    'options' => [
+                        'label' => 'Currency Label',
+                    ],
+                ],
+                'amount' => [
+                    'options' => [
+                        'label' => 'Amount Label',
+                    ],
+                ],
+            ],
+        ]);
+        /** @var MoneyFieldset $fieldset */
+        $fieldset = $form->get('money');
+        $this->assertInstanceOf(MoneyFieldset::class, $fieldset);
+        $this->assertSame('Currency Label', $fieldset->currencyElement()->getLabel());
+        $this->assertSame('Amount Label', $fieldset->amountElement()->getLabel());
+    }
 }
