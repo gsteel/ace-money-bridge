@@ -29,4 +29,14 @@ class MoneyFieldset extends Fieldset
             new Money(0, $defaultCurrency)
         );
     }
+
+    public function currencyElement() : ElementInterface
+    {
+        return $this->get('currency');
+    }
+
+    public function amountElement() : ElementInterface
+    {
+        return $this->get('amount');
+    }
 }
