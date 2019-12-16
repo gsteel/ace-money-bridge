@@ -10,6 +10,7 @@ use function is_array;
 
 class RequireableInputFilter extends InputFilter
 {
+    /** @var bool */
     private $required = true;
 
     public function isRequired() : bool
@@ -33,6 +34,7 @@ class RequireableInputFilter extends InputFilter
         return parent::isValid($context);
     }
 
+    /** @param mixed[] $data */
     private function isEmptyArray(array $data) : bool
     {
         $nonEmpty = array_filter($data);

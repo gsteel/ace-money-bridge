@@ -12,6 +12,7 @@ use function trim;
 
 class CurrencyCodeToCurrencyFilter implements FilterInterface
 {
+    /** @inheritDoc */
     public function filter($value)
     {
         if ($value instanceof Currency) {

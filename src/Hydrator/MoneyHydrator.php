@@ -16,7 +16,10 @@ use function sprintf;
 
 class MoneyHydrator implements HydratorInterface
 {
+    /** @var MoneyFormatter */
     private $formatter;
+
+    /** @var MoneyParser */
     private $parser;
 
     public function __construct(MoneyFormatter $formatter, MoneyParser $parser)
@@ -25,6 +28,7 @@ class MoneyHydrator implements HydratorInterface
         $this->parser = $parser;
     }
 
+    /** @inheritDoc */
     public function extract($object) : array
     {
         $this->assertMoneyInstance($object);
@@ -35,12 +39,14 @@ class MoneyHydrator implements HydratorInterface
         ];
     }
 
-    public function hydrate(array $data, $object)
+    /** @inheritDoc */
+    public function hydrate(array $data, $object = null)
     {
         $this->assertExpectedArrayStructure($data);
         return $this->parser->parse($data['amount'], $data['currency']);
     }
 
+    /** @param mixed $object */
     private function assertMoneyInstance($object) : void
     {
         if (! $object instanceof Money) {
@@ -52,6 +58,7 @@ class MoneyHydrator implements HydratorInterface
         }
     }
 
+    /** @param mixed[] $data */
     private function assertExpectedArrayStructure(array $data) : void
     {
         if (! array_key_exists('currency', $data)) {

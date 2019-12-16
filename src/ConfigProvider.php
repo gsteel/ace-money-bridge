@@ -7,7 +7,8 @@ use Money as PHPMoney;
 
 class ConfigProvider
 {
-    public function __invoke()
+    /** @return mixed[] */
+    public function __invoke() : array
     {
         return [
             'defaultCurrencyCode' => 'GBP',
@@ -18,6 +19,7 @@ class ConfigProvider
         ];
     }
 
+    /** @return mixed[] */
     private function formElementConfig() : array
     {
         return [
@@ -28,6 +30,7 @@ class ConfigProvider
         ];
     }
 
+    /** @return mixed[] */
     private function hydratorConfig() : array
     {
         return [
@@ -37,6 +40,7 @@ class ConfigProvider
         ];
     }
 
+    /** @return mixed[] */
     private function dependencyConfig() : array
     {
         return [
@@ -47,6 +51,7 @@ class ConfigProvider
         ];
     }
 
+    /** @return mixed[] */
     private function validatorConfig() : array
     {
         return [

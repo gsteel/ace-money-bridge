@@ -4,8 +4,9 @@ declare(strict_types=1);
 namespace ACE\Money\InputFilter;
 
 use ACE\Money\Validator\CurrencyValidator;
-use Zend\Filter;
-use Zend\InputFilter\InputFilter;
+use Zend\Filter\Callback;
+use Zend\Filter\StringToUpper;
+use Zend\Filter\StringTrim;
 use Zend\Validator\Regex;
 
 class MoneyInputFilter extends RequireableInputFilter
@@ -23,10 +24,10 @@ class MoneyInputFilter extends RequireableInputFilter
             ],
             'filters' => [
                 'trim' => [
-                    'name' => Filter\StringTrim::class,
+                    'name' => StringTrim::class,
                 ],
                 'upper' => [
-                    'name' => Filter\StringToUpper::class,
+                    'name' => StringToUpper::class,
                 ],
             ],
         ]);
@@ -47,10 +48,10 @@ class MoneyInputFilter extends RequireableInputFilter
             ],
             'filters' => [
                 'trim' => [
-                    'name' => Filter\StringTrim::class,
+                    'name' => StringTrim::class,
                 ],
                 'toString' => [
-                    'name' => Filter\Callback::class,
+                    'name' => Callback::class,
                     'options' => [
                         'callback' => static function ($value) : string {
                             return (string) $value;
