@@ -2,11 +2,13 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-## 0.5.0 - TBD
+## 0.5.0 - 2019-12-16
 
 ### Added
 
-- Nothing.
+- New filter that hydrates expected array input to a money instance if possible
+- New validator that validates array input representing money and currency
+- New composite form element that can be used instead of the fieldset
 
 ### Changed
 
