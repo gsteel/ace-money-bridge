@@ -40,6 +40,7 @@ class ToMoneyTest extends TestCase
             [['currency' => 'GBP', 'amount' => null]],
             [['currency' => '123', 'amount' => 'GBP']],
             [['currency' => '123', 'amount' => 'GBP']],
+            [['currency' => 'GB', 'amount' => '123']],
         ];
     }
 

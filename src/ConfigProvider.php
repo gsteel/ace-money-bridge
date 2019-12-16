@@ -26,6 +26,7 @@ class ConfigProvider
             'factories' => [
                 Form\MoneyFieldset::class => Container\MoneyFieldsetFactory::class,
                 Form\Element\CurrencySelect::class => Container\CurrencySelectFactory::class,
+                Form\Element\MoneyElement::class => Container\MoneyElementFactory::class,
             ],
         ];
     }
@@ -57,6 +58,7 @@ class ConfigProvider
         return [
             'factories' => [
                 Validator\CurrencyValidator::class => Container\CurrencyValidatorFactory::class,
+                Validator\MoneyValidator::class => Container\MoneyValidatorFactory::class,
             ],
         ];
     }

@@ -11,13 +11,13 @@ use Zend\Form\Element\Select;
 
 class CurrencySelect extends Select
 {
-
     public function __construct(Currencies $currencies)
     {
         parent::__construct();
         $this->setValueOptions($this->valueOptionsFromCurrencyList($currencies));
     }
 
+    /** @inheritDoc */
     public function getInputSpecification() : array
     {
         return [
@@ -39,6 +39,7 @@ class CurrencySelect extends Select
         ];
     }
 
+    /** @return string[] */
     private function valueOptionsFromCurrencyList(Currencies $currencies) : array
     {
         $options = [];
