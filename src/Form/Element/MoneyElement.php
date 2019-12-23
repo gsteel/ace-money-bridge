@@ -8,10 +8,12 @@ use ACE\Money\Form\Element\Money as MoneyInput;
 use ACE\Money\Hydrator\MoneyHydrator;
 use ACE\Money\Input\MoneyInputSpec;
 use Money\Money;
+use Traversable;
 use Zend\Form\Element;
 use Zend\Form\ElementPrepareAwareInterface;
 use Zend\Form\FormInterface;
 use Zend\InputFilter\InputProviderInterface;
+use Zend\Stdlib\ArrayUtils;
 use function is_array;
 use function sprintf;
 use function trim;
@@ -28,12 +30,12 @@ class MoneyElement extends Element implements InputProviderInterface, ElementPre
     private $hydrator;
 
     /** @inheritDoc */
-    public function __construct(MoneyHydrator $hydrator)
+    public function __construct(MoneyHydrator $hydrator, ?string $name = null, $options = [])
     {
         $this->amount = new MoneyInput();
         $this->currency = new CurrencyInput();
         $this->hydrator = $hydrator;
-        parent::__construct();
+        parent::__construct($name, $options);
     }
 
     /** @inheritDoc */
@@ -87,5 +89,77 @@ class MoneyElement extends Element implements InputProviderInterface, ElementPre
     public function amountElement() : MoneyInput
     {
         return $this->amount;
+    }
+
+    /** @inheritDoc */
+    public function setOptions($options) : self
+    {
+        parent::setOptions($options);
+
+        if ($options instanceof Traversable) {
+            $options = ArrayUtils::iteratorToArray($options);
+        }
+
+        if (isset($options['currency_options'])) {
+            $this->setCurrencyOptions($options['currency_options']);
+        }
+
+        if (isset($options['currency_attributes'])) {
+            $this->setCurrencyAttributes($options['currency_attributes']);
+        }
+
+        if (isset($options['amount_options'])) {
+            $this->setAmountOptions($options['amount_options']);
+        }
+
+        if (isset($options['amount_attributes'])) {
+            $this->setAmountAttributes($options['amount_attributes']);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Set attributes for the currency element
+     *
+     * @param mixed[] $currencyAttributes
+     */
+    public function setCurrencyAttributes(array $currencyAttributes) : self
+    {
+        $this->currency->setAttributes($currencyAttributes);
+        return $this;
+    }
+
+    /**
+     * Set attributes for the amount element
+     *
+     * @param mixed[] $amountAttributes
+     */
+    public function setAmountAttributes(array $amountAttributes) : self
+    {
+        $this->amount->setAttributes($amountAttributes);
+        return $this;
+    }
+
+    /**
+     * Set options for the currency element
+     *
+     * @param mixed[] $currencyOptions
+     */
+    public function setCurrencyOptions(array $currencyOptions) : self
+    {
+        $this->currency->setOptions($currencyOptions);
+        return $this;
+    }
+
+    /**
+     * Set options for the amount element
+     *
+     * @param mixed[] $amountOptions
+     */
+    public function setAmountOptions(array $amountOptions) : self
+    {
+        $this->amount->setOptions($amountOptions);
+        return $this;
     }
 }

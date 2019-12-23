@@ -102,4 +102,32 @@ class MoneyElementTest extends TestCase
         $value = $this->element->getValue();
         $this->assertStringMatchesFormat('%s %f', $value);
     }
+
+    public function testElementAttributesWillBeProvidedToElements() : void
+    {
+        $this->element->setOptions([
+            'currency_attributes' => [
+                'data-foo' => 'baz',
+            ],
+            'amount_attributes' => [
+                'data-bar' => 'bing',
+            ],
+        ]);
+        $this->assertSame('baz', $this->element->currencyElement()->getAttribute('data-foo'));
+        $this->assertSame('bing', $this->element->amountElement()->getAttribute('data-bar'));
+    }
+
+    public function testElementOptionsWillBeProvidedToElements() : void
+    {
+        $this->element->setOptions([
+            'currency_options' => [
+                'label' => 'C',
+            ],
+            'amount_options' => [
+                'label' => 'Amt',
+            ],
+        ]);
+        $this->assertSame('C', $this->element->currencyElement()->getLabel());
+        $this->assertSame('Amt', $this->element->amountElement()->getLabel());
+    }
 }
