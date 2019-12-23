@@ -8,8 +8,9 @@ use Zend\Form\Element\Number as NumberElement;
 use Zend\InputFilter\InputProviderInterface;
 use Zend\Validator\Regex;
 
-class Money extends NumberElement implements InputProviderInterface
+class Money extends NumberElement
 {
+    /** @inheritDoc */
     public function getInputSpecification() : array
     {
         return [
