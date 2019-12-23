@@ -34,6 +34,7 @@ class MoneyFieldset extends Fieldset
         ]);
     }
 
+    /** @inheritDoc */
     public function setOptions($options) : self
     {
         parent::setOptions($options);

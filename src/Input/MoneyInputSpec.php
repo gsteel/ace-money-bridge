@@ -19,9 +19,21 @@ class MoneyInputSpec
                 ],
             ],
             'validators' => [
-                'isCoords' => [
+                'isMoney' => [
                     'name' => MoneyValidator::class,
                 ],
+            ],
+            'options' => [
+                'currency_attributes' => [
+                    'required' => $required,
+                    'placeholder' => 'Currency Code (XXX)',
+                ],
+                'currency_options' => [],
+                'amount_attributes' => [
+                    'required' => $required,
+                    'placeholder' => 'Amount (100.50)',
+                ],
+                'amount_options' => [],
             ],
         ];
     }

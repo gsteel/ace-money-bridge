@@ -21,6 +21,7 @@
         "zendframework/zend-i18n": "^2.9"
     },
     "require-dev" : {
+        "pcov/clobber": "^2.0",
         "phpunit/phpunit": "^7.5",
         "zendframework/zend-code": "^3.3",
         "zendframework/zend-config-aggregator": "^1.1"
