@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 0.6.0 - 2019-12-23
+
+### Added
+
+- [#5](https://github.com/gsteel/ace-money-bridge/pull/5) Adds new methods to the Money element that allow you to
+ provide element options and attributes to the composed currency and amount elements
+
+### Changed
+
+- [#5](https://github.com/gsteel/ace-money-bridge/pull/5) The default money input specification adds the required
+ attribute to the form elements as per it's invoke argument along with a default placeholder value.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Nothing.
+
 ## 0.5.0 - 2019-12-16
 
 ### Added
