@@ -8,7 +8,7 @@ use ACETest\Money\BindableObject;
 use ACETest\Money\TestCase;
 use Money\Money;
 use Zend\Form\Form;
-use Zend\Hydrator\ClassMethods;
+use Zend\Hydrator\ClassMethodsHydrator;
 
 class FormIntegrationTest extends TestCase
 {
@@ -19,7 +19,7 @@ class FormIntegrationTest extends TestCase
 
         /** @var Form $form */
         $form = $forms->get(Form::class);
-        $form->setHydrator(new ClassMethods());
+        $form->setHydrator(new ClassMethodsHydrator());
         $form->add([
             'name' => 'amount',
             'type' => MoneyFieldset::class,

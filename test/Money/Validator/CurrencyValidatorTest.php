@@ -56,7 +56,7 @@ class CurrencyValidatorTest extends TestCase
     {
         $this->assertFalse($this->validator->isValid(new Currency('ZZZ')));
         $this->assertArrayHasKey(CurrencyValidator::CODE_NOT_ACCEPTABLE, $this->validator->getMessages());
-        $this->assertContains(
+        $this->assertStringContainsString(
             'The currency "ZZZ" is not available',
             $this->validator->getMessages()[CurrencyValidator::CODE_NOT_ACCEPTABLE]
         );
@@ -82,7 +82,7 @@ class CurrencyValidatorTest extends TestCase
     {
         $this->assertFalse($this->validator->isValid('ZZZ'));
         $this->assertArrayHasKey(CurrencyValidator::CODE_NOT_ACCEPTABLE, $this->validator->getMessages());
-        $this->assertContains(
+        $this->assertStringContainsString(
             'The currency "ZZZ" is not available',
             $this->validator->getMessages()[CurrencyValidator::CODE_NOT_ACCEPTABLE]
         );

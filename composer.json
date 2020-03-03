@@ -13,16 +13,16 @@
         "sort-packages": true
     },
     "require": {
-        "php": ">=7.1",
+        "php": ">=7.3",
         "ext-json": "*",
         "moneyphp/money": "^3.2",
         "zendframework/zend-form": "^2.14",
-        "zendframework/zend-hydrator": "^2",
+        "zendframework/zend-hydrator": "^3",
         "zendframework/zend-i18n": "^2.9"
     },
     "require-dev" : {
         "pcov/clobber": "^2.0",
-        "phpunit/phpunit": "^7.5",
+        "phpunit/phpunit": "^9",
         "zendframework/zend-code": "^3.3",
         "zendframework/zend-config-aggregator": "^1.1"
     },
