@@ -4,10 +4,10 @@ declare(strict_types=1);
 namespace ACE\Money\Form\Element;
 
 use ACE\Money\Validator\CurrencyValidator;
+use Laminas\Filter;
+use Laminas\Form\Element\Select;
 use Money\Currencies;
 use Money\Currency;
-use Zend\Filter;
-use Zend\Form\Element\Select;
 
 class CurrencySelect extends Select
 {

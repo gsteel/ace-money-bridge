@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace ACE\Money\Filter;
 
+use Laminas\Filter\FilterInterface;
 use Money\Currency;
-use Zend\Filter\FilterInterface;
 use function is_string;
 use function preg_match;
 use function strtoupper;

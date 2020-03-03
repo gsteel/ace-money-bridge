@@ -4,9 +4,9 @@ declare(strict_types=1);
 namespace ACE\Money\Form\Element;
 
 use ACE\Money\Validator\CurrencyValidator;
-use Zend\Filter;
-use Zend\Form\Element\Text as TextElement;
-use Zend\InputFilter\InputProviderInterface;
+use Laminas\Filter;
+use Laminas\Form\Element\Text as TextElement;
+use Laminas\InputFilter\InputProviderInterface;
 
 class Currency extends TextElement implements InputProviderInterface
 {

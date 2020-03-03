@@ -6,9 +6,9 @@ namespace ACETest\Money\Form;
 use ACE\Money\Form\MoneyFieldset;
 use ACETest\Money\BindableObject;
 use ACETest\Money\TestCase;
+use Laminas\Form\Form;
+use Laminas\Hydrator\ClassMethodsHydrator;
 use Money\Money;
-use Zend\Form\Form;
-use Zend\Hydrator\ClassMethodsHydrator;
 
 class FormIntegrationTest extends TestCase
 {

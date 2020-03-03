@@ -7,10 +7,10 @@ use ACE\Money\Hydrator\MoneyHydrator;
 use ACE\Money\InputFilter\MoneyInputFilter;
 use ACE\Money\Validator\CurrencyValidator;
 use ACETest\Money\TestCase;
-use Zend\Hydrator\HydratorPluginManager;
-use Zend\InputFilter\InputFilter;
-use Zend\InputFilter\InputFilterPluginManager;
-use Zend\Validator\Regex;
+use Laminas\Hydrator\HydratorPluginManager;
+use Laminas\InputFilter\InputFilter;
+use Laminas\InputFilter\InputFilterPluginManager;
+use Laminas\Validator\Regex;
 use function json_encode;
 use const JSON_PRETTY_PRINT;
 

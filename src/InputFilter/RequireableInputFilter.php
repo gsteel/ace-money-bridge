@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace ACE\Money\InputFilter;
 
-use Zend\InputFilter\InputFilter;
+use Laminas\InputFilter\InputFilter;
 use function array_filter;
 use function in_array;
 use function is_array;

@@ -3,10 +3,9 @@ declare(strict_types=1);
 
 namespace ACE\Money\Form\Element;
 
-use Zend\Filter;
-use Zend\Form\Element\Number as NumberElement;
-use Zend\InputFilter\InputProviderInterface;
-use Zend\Validator\Regex;
+use Laminas\Filter;
+use Laminas\Form\Element\Number as NumberElement;
+use Laminas\Validator\Regex;
 
 class Money extends NumberElement
 {

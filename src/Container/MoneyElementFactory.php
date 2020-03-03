@@ -5,8 +5,8 @@ namespace ACE\Money\Container;
 
 use ACE\Money\Form\Element\MoneyElement;
 use ACE\Money\Hydrator\MoneyHydrator;
+use Laminas\Hydrator\HydratorPluginManager;
 use Psr\Container\ContainerInterface;
-use Zend\Hydrator\HydratorPluginManager;
 
 class MoneyElementFactory
 {

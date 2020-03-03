@@ -5,8 +5,8 @@ namespace ACE\Money\Container;
 
 use ACE\Money\Validator\CurrencyValidator;
 use ACE\Money\Validator\MoneyValidator;
+use Laminas\Validator\ValidatorPluginManager;
 use Psr\Container\ContainerInterface;
-use Zend\Validator\ValidatorPluginManager;
 
 class MoneyValidatorFactory
 {

@@ -5,8 +5,8 @@ namespace ACETest\Money\Form\Element;
 
 use ACE\Money\Form\Element\CurrencySelect;
 use ACETest\Money\TestCase;
+use Laminas\ServiceManager\AbstractPluginManager;
 use Money\Currencies\ISOCurrencies;
-use Zend\ServiceManager\AbstractPluginManager;
 
 class CurrencySelectTest extends TestCase
 {

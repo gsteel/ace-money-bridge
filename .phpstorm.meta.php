@@ -10,7 +10,7 @@ namespace PHPSTORM_META
         ])
     );
     override(
-        \Zend\Form\FormElementManager\FormElementManagerTrait::get(0),
+        \Laminas\Form\FormElementManager\FormElementManagerTrait::get(0),
         map([])
     );
 }

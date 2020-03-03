@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace ACE\Money\Validator;
 
+use Laminas\Validator\AbstractValidator;
 use Money\Currencies;
 use Money\Currency;
-use Zend\Validator\AbstractValidator;
 use function is_string;
 use function preg_match;
 

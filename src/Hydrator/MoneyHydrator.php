@@ -4,10 +4,10 @@ declare(strict_types=1);
 namespace ACE\Money\Hydrator;
 
 use ACE\Money\Exception;
+use Laminas\Hydrator\HydratorInterface;
 use Money\Money;
 use Money\MoneyFormatter;
 use Money\MoneyParser;
-use Zend\Hydrator\HydratorInterface;
 use function array_key_exists;
 use function get_class;
 use function gettype;
