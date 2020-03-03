@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace ACE\Money\Validator;
 
+use Laminas\Validator\AbstractValidator;
 use Money\Money;
-use Zend\Validator\AbstractValidator;
 use function is_array;
 use function is_numeric;
 

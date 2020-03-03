@@ -7,10 +7,10 @@ use ACE\Money\Form\Element\Currency as CurrencyElement;
 use ACE\Money\Form\Element\Money;
 use ACE\Money\Form\MoneyFieldset;
 use ACE\Money\Hydrator\MoneyHydrator;
+use Laminas\Form\FormElementManager\FormElementManagerV3Polyfill;
+use Laminas\Hydrator\HydratorPluginManager;
 use Money\Currency;
 use Psr\Container\ContainerInterface;
-use Zend\Form\FormElementManager\FormElementManagerV3Polyfill;
-use Zend\Hydrator\HydratorPluginManager;
 
 class MoneyFieldsetFactory
 {

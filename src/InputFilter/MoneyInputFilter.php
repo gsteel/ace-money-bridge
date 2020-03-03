@@ -4,10 +4,10 @@ declare(strict_types=1);
 namespace ACE\Money\InputFilter;
 
 use ACE\Money\Validator\CurrencyValidator;
-use Zend\Filter\Callback;
-use Zend\Filter\StringToUpper;
-use Zend\Filter\StringTrim;
-use Zend\Validator\Regex;
+use Laminas\Filter\Callback;
+use Laminas\Filter\StringToUpper;
+use Laminas\Filter\StringTrim;
+use Laminas\Validator\Regex;
 
 class MoneyInputFilter extends RequireableInputFilter
 {

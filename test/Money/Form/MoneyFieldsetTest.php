@@ -6,15 +6,15 @@ namespace ACETest\Money\Form;
 use ACE\Money\Form\MoneyFieldset;
 use ACE\Money\Hydrator\MoneyHydrator;
 use ACETest\Money\BindableObject;
+use Laminas\Form\Element\Text;
+use Laminas\Form\Form;
+use Laminas\Hydrator\ClassMethodsHydrator;
 use Money\Currencies\ISOCurrencies;
 use Money\Currency;
 use Money\Formatter\DecimalMoneyFormatter;
 use Money\Money;
 use Money\Parser\DecimalMoneyParser;
 use PHPUnit\Framework\TestCase;
-use Zend\Form\Element\Text;
-use Zend\Form\Form;
-use Zend\Hydrator\ClassMethods;
 
 class MoneyFieldsetTest extends TestCase
 {
@@ -64,7 +64,7 @@ class MoneyFieldsetTest extends TestCase
     public function testFieldsetBinding() : void
     {
         $form = $this->form();
-        $form->setHydrator(new ClassMethods());
+        $form->setHydrator(new ClassMethodsHydrator());
         $bind = new BindableObject();
         $money = new Money(2000, new Currency('GBP'));
         $bind->setAmount($money);
@@ -83,7 +83,7 @@ class MoneyFieldsetTest extends TestCase
     public function testValidatedFormValuesAreReflectedInObject() : void
     {
         $form = $this->form();
-        $form->setHydrator(new ClassMethods());
+        $form->setHydrator(new ClassMethodsHydrator());
         $bind = new BindableObject();
         $form->bind($bind);
         $form->setData([

@@ -3,11 +3,11 @@ declare(strict_types=1);
 
 namespace ACE\Money\Filter;
 
+use Laminas\Filter\AbstractFilter;
 use Money\Currencies;
 use Money\Currencies\ISOCurrencies;
 use Money\Currency;
 use Money\Parser\DecimalMoneyParser;
-use Zend\Filter\AbstractFilter;
 use function is_array;
 use function is_numeric;
 

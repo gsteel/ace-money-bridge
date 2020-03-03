@@ -4,10 +4,10 @@ declare(strict_types=1);
 namespace ACE\Money\Form;
 
 use ACE\Money\Hydrator\MoneyHydrator;
+use Laminas\Form\ElementInterface;
+use Laminas\Form\Fieldset;
 use Money\Currency;
 use Money\Money;
-use Zend\Form\ElementInterface;
-use Zend\Form\Fieldset;
 use function is_iterable;
 
 class MoneyFieldset extends Fieldset

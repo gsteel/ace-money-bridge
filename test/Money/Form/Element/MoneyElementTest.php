@@ -5,9 +5,9 @@ namespace ACETest\Money\Form\Element;
 
 use ACE\Money\Form\Element\MoneyElement;
 use ACETest\Money\TestCase;
+use Laminas\Form\Form;
 use Money\Currency;
 use Money\Money as MoneyValue;
-use Zend\Form\Form;
 use function json_encode;
 
 class MoneyElementTest extends TestCase
