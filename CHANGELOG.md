@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 1.0.0 - 2020-03-04
+
+### Added
+
+- Nothing
+
+### Changed
+
+- [#6](https://github.com/gsteel/ace-money-bridge/pull/6) Upgrades dependencies and migrates to Laminas from Zend
+    - Bumped minimum PHP Version to 7.3
+    - Upgraded to Laminas\Hydrator 3.x
+    - Upgrade PHPUnit to 9.x
+    - Migrate to Laminas Equivalents from Zend
+    - Declare other hidden dependencies in composer.json
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Nothing.
+
 ## 0.6.0 - 2019-12-23
 
 ### Added
