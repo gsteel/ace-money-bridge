@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ACETest\Money\InputFilter;
@@ -11,8 +12,11 @@ use Laminas\Hydrator\HydratorPluginManager;
 use Laminas\InputFilter\InputFilter;
 use Laminas\InputFilter\InputFilterPluginManager;
 use Laminas\Validator\Regex;
+
 use function json_encode;
+
 use const JSON_PRETTY_PRINT;
+use const JSON_THROW_ON_ERROR;
 
 class MoneyInputFilterTest extends TestCase
 {
@@ -22,7 +26,7 @@ class MoneyInputFilterTest extends TestCase
     /** @var MoneyHydrator */
     private $hydrator;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
         $container = $this->getContainer();
@@ -32,7 +36,8 @@ class MoneyInputFilterTest extends TestCase
         $this->hydrator = $hydrators->get(MoneyHydrator::class);
     }
 
-    public function validData() : iterable
+    /** @return mixed[] */
+    public function validData(): iterable
     {
         return [
             // Various valid number representations
@@ -57,20 +62,23 @@ class MoneyInputFilterTest extends TestCase
     }
 
     /**
+     * @param int|string|float $amount
+     *
      * @dataProvider validData
      */
-    public function testValidValues(string $code, $amount, int $expectedAmount) : void
+    public function testValidValues(string $code, $amount, int $expectedAmount): void
     {
         $this->filter->setData([
             'currency' => $code,
             'amount' => $amount,
         ]);
-        $this->assertTrue($this->filter->isValid());
+        self::assertTrue($this->filter->isValid());
         $money = $this->hydrator->hydrate($this->filter->getValues(), null);
-        $this->assertEquals($expectedAmount, $money->getAmount());
+        self::assertEquals($expectedAmount, $money->getAmount());
     }
 
-    public function invalidValues() : iterable
+    /** @return mixed[] */
+    public function invalidValues(): iterable
     {
         return [
             ['ZZZ', '1', 'currency', CurrencyValidator::CODE_NOT_ACCEPTABLE],
@@ -85,21 +93,24 @@ class MoneyInputFilterTest extends TestCase
     }
 
     /**
+     * @param mixed $code
+     * @param mixed $amount
+     *
      * @dataProvider invalidValues
      */
-    public function testInvalidValues($code, $amount, string $elementName, string $errorKey) : void
+    public function testInvalidValues($code, $amount, string $elementName, string $errorKey): void
     {
         $this->filter->setData([
             'currency' => $code,
             'amount' => $amount,
         ]);
-        $this->assertFalse($this->filter->isValid());
+        self::assertFalse($this->filter->isValid());
         $messages = $this->filter->getMessages();
-        $this->assertArrayHasKey($elementName, $messages);
-        $this->assertArrayHasKey($errorKey, $messages[$elementName], json_encode($messages, JSON_PRETTY_PRINT));
+        self::assertArrayHasKey($elementName, $messages);
+        self::assertArrayHasKey($errorKey, $messages[$elementName], json_encode($messages, JSON_THROW_ON_ERROR | JSON_PRETTY_PRINT));
     }
 
-    private function generateParentInputFilter() : InputFilter
+    private function generateParentInputFilter(): InputFilter
     {
         $parentInputFilter = new InputFilter();
         $parentInputFilter->add([
@@ -107,13 +118,14 @@ class MoneyInputFilterTest extends TestCase
             'required' => true,
         ]);
         $parentInputFilter->add($this->filter, 'money');
+
         return $parentInputFilter;
     }
 
-    public function testNestedMoneyFilterIsRequiredByDefault() : void
+    public function testNestedMoneyFilterIsRequiredByDefault(): void
     {
         $parentInputFilter = $this->generateParentInputFilter();
-        $this->assertTrue($this->filter->isRequired());
+        self::assertTrue($this->filter->isRequired());
         $parentInputFilter->setData([
             'test' => null,
             'money' => [
@@ -121,19 +133,19 @@ class MoneyInputFilterTest extends TestCase
                 'amount' => null,
             ],
         ]);
-        $this->assertFalse($parentInputFilter->isValid());
+        self::assertFalse($parentInputFilter->isValid());
         $messages = $parentInputFilter->getMessages();
-        $this->assertArrayHasKey('test', $messages);
-        $this->assertArrayHasKey('money', $messages);
-        $this->assertArrayHasKey('currency', $messages['money']);
-        $this->assertArrayHasKey('amount', $messages['money']);
+        self::assertArrayHasKey('test', $messages);
+        self::assertArrayHasKey('money', $messages);
+        self::assertArrayHasKey('currency', $messages['money']);
+        self::assertArrayHasKey('amount', $messages['money']);
     }
 
-    public function testNestedMoneyFilterCanBeOptional() : void
+    public function testNestedMoneyFilterCanBeOptional(): void
     {
         $parentInputFilter = $this->generateParentInputFilter();
         $this->filter->setRequired(false);
-        $this->assertFalse($this->filter->isRequired());
+        self::assertFalse($this->filter->isRequired());
         $parentInputFilter->setData([
             'test' => 'Foo',
             'money' => [
@@ -141,9 +153,9 @@ class MoneyInputFilterTest extends TestCase
                 'amount' => null,
             ],
         ]);
-        $this->assertTrue($parentInputFilter->isValid());
+        self::assertTrue($parentInputFilter->isValid());
         $messages = $parentInputFilter->getMessages();
-        $this->assertArrayNotHasKey('test', $messages);
-        $this->assertArrayNotHasKey('money', $messages);
+        self::assertArrayNotHasKey('test', $messages);
+        self::assertArrayNotHasKey('money', $messages);
     }
 }

@@ -18,6 +18,10 @@
         <severity phpcbf-only="true">0</severity>
     </rule>
 
+    <rule ref="SlevomatCodingStandard.Classes.SuperfluousExceptionNaming.SuperfluousSuffix">
+        <severity>0</severity>
+    </rule>
+
     <!-- Include full Doctrine Coding Standard -->
     <rule ref="Doctrine">
         <exclude name="Generic.Formatting.MultipleStatementAlignment.NotSame" />

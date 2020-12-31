@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ACETest\Money\Filter;
@@ -11,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 class ToMoneyTest extends TestCase
 {
     /** @return mixed[] */
-    public function validValues() : array
+    public function validValues(): array
     {
         return [
             ['1.00', 'GBP', 100, 'GBP'],
@@ -27,7 +28,7 @@ class ToMoneyTest extends TestCase
     }
 
     /** @return mixed[] */
-    public function invalidInput() : array
+    public function invalidInput(): array
     {
         return [
             [[]],
@@ -50,7 +51,7 @@ class ToMoneyTest extends TestCase
      *
      * @dataProvider validValues
      */
-    public function testValidValues($inputAmount, $inputCode, int $expectAmount, string $expectCode) : void
+    public function testValidValues($inputAmount, $inputCode, int $expectAmount, string $expectCode): void
     {
         $input = [
             'currency' => $inputCode,
@@ -67,13 +68,13 @@ class ToMoneyTest extends TestCase
      *
      * @dataProvider invalidInput
      */
-    public function testInvalidInput($input) : void
+    public function testInvalidInput($input): void
     {
         $result = (new ToMoney())->filter($input);
         $this->assertEquals($input, $result);
     }
 
-    public function testMoneyInstanceWillNotBeFiltered() : void
+    public function testMoneyInstanceWillNotBeFiltered(): void
     {
         $input = new Money(100, new Currency('GBP'));
         $result = (new ToMoney())->filter($input);

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ACE\Money\Form\Element;
@@ -10,12 +11,14 @@ use Laminas\InputFilter\InputProviderInterface;
 
 class Currency extends TextElement implements InputProviderInterface
 {
+    /** @var array<string, int|string> */
     protected $attributes = [
         'type' => 'text',
         'maxlength' => 3,
     ];
 
-    public function getInputSpecification() : array
+    /** @inheritDoc */
+    public function getInputSpecification(): array
     {
         return [
             'name' => $this->getName(),

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ACE\Money\Form\Element;
@@ -9,6 +10,8 @@ use Laminas\Form\Element\Select;
 use Money\Currencies;
 use Money\Currency;
 
+use function assert;
+
 class CurrencySelect extends Select
 {
     public function __construct(Currencies $currencies)
@@ -18,7 +21,7 @@ class CurrencySelect extends Select
     }
 
     /** @inheritDoc */
-    public function getInputSpecification() : array
+    public function getInputSpecification(): array
     {
         return [
             'name' => $this->getName(),
@@ -40,14 +43,15 @@ class CurrencySelect extends Select
     }
 
     /** @return string[] */
-    private function valueOptionsFromCurrencyList(Currencies $currencies) : array
+    private function valueOptionsFromCurrencyList(Currencies $currencies): array
     {
         $options = [];
-        /** @var Currency $item */
         foreach ($currencies->getIterator() as $item) {
+            assert($item instanceof Currency);
             $code = $item->getCode();
             $options[$code] = $code;
         }
+
         return $options;
     }
 }

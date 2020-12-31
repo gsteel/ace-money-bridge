@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ACE\Money\Container;
@@ -9,7 +10,7 @@ use Psr\Container\ContainerInterface;
 
 class CurrencyValidatorFactory
 {
-    public function __invoke(ContainerInterface $container) : CurrencyValidator
+    public function __invoke(ContainerInterface $container): CurrencyValidator
     {
         return new CurrencyValidator($container->get(Currencies::class));
     }

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ACE\Money\InputFilter;
@@ -11,7 +12,7 @@ use Laminas\Validator\Regex;
 
 class MoneyInputFilter extends RequireableInputFilter
 {
-    public function init() : void
+    public function init(): void
     {
         parent::init();
         $this->add([
@@ -53,7 +54,7 @@ class MoneyInputFilter extends RequireableInputFilter
                 'toString' => [
                     'name' => Callback::class,
                     'options' => [
-                        'callback' => static function ($value) : string {
+                        'callback' => static function ($value): string {
                             return (string) $value;
                         },
                     ],

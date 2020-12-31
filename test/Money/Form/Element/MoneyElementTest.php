@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ACETest\Money\Form\Element;
@@ -8,6 +9,7 @@ use ACETest\Money\TestCase;
 use Laminas\Form\Form;
 use Money\Currency;
 use Money\Money as MoneyValue;
+
 use function json_encode;
 
 class MoneyElementTest extends TestCase
@@ -18,7 +20,7 @@ class MoneyElementTest extends TestCase
     /** @var Form */
     private $form;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         parent::setUp();
         $container = $this->getContainer();
@@ -26,7 +28,7 @@ class MoneyElementTest extends TestCase
         $this->element = $forms->get(MoneyElement::class);
     }
 
-    private function prepareForm() : Form
+    private function prepareForm(): Form
     {
         $container = $this->getContainer();
         $forms = $container->get('FormElementManager');
@@ -34,16 +36,17 @@ class MoneyElementTest extends TestCase
         $this->element->setName('myMoney');
         $this->form->add($this->element);
         $this->form->prepare();
+
         return $this->form;
     }
 
-    public function testElementsCanBeRetrieved() : void
+    public function testElementsCanBeRetrieved(): void
     {
         $this->assertNotNull($this->element->amountElement());
         $this->assertNotNull($this->element->currencyElement());
     }
 
-    public function testWeCanGetSomeMoneyOutOfTheForm() : void
+    public function testWeCanGetSomeMoneyOutOfTheForm(): void
     {
         $this->prepareForm();
         $this->assertSame('myMoney', $this->element->getName());
@@ -63,7 +66,7 @@ class MoneyElementTest extends TestCase
         $this->assertInstanceOf(MoneyValue::class, $output['myMoney']);
     }
 
-    public function testMoneyElementInputIsOk() : void
+    public function testMoneyElementInputIsOk(): void
     {
         $this->prepareForm();
         $money = new MoneyValue(123, new Currency('GBP'));
@@ -74,7 +77,7 @@ class MoneyElementTest extends TestCase
         $this->assertTrue($money->equals($out));
     }
 
-    public function testInvalidArrayInput() : void
+    public function testInvalidArrayInput(): void
     {
         $input = [
             'myMoney' => [
@@ -89,7 +92,7 @@ class MoneyElementTest extends TestCase
         $this->assertEquals($input['myMoney'], $out);
     }
 
-    public function testStringValueCanBeRetrieved() : void
+    public function testStringValueCanBeRetrieved(): void
     {
         $input = [
             'myMoney' => [
@@ -103,29 +106,21 @@ class MoneyElementTest extends TestCase
         $this->assertStringMatchesFormat('%s %f', $value);
     }
 
-    public function testElementAttributesWillBeProvidedToElements() : void
+    public function testElementAttributesWillBeProvidedToElements(): void
     {
         $this->element->setOptions([
-            'currency_attributes' => [
-                'data-foo' => 'baz',
-            ],
-            'amount_attributes' => [
-                'data-bar' => 'bing',
-            ],
+            'currency_attributes' => ['data-foo' => 'baz'],
+            'amount_attributes' => ['data-bar' => 'bing'],
         ]);
         $this->assertSame('baz', $this->element->currencyElement()->getAttribute('data-foo'));
         $this->assertSame('bing', $this->element->amountElement()->getAttribute('data-bar'));
     }
 
-    public function testElementOptionsWillBeProvidedToElements() : void
+    public function testElementOptionsWillBeProvidedToElements(): void
     {
         $this->element->setOptions([
-            'currency_options' => [
-                'label' => 'C',
-            ],
-            'amount_options' => [
-                'label' => 'Amt',
-            ],
+            'currency_options' => ['label' => 'C'],
+            'amount_options' => ['label' => 'Amt'],
         ]);
         $this->assertSame('C', $this->element->currencyElement()->getLabel());
         $this->assertSame('Amt', $this->element->amountElement()->getLabel());

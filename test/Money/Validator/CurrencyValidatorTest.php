@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ACETest\Money\Validator;
@@ -8,26 +9,27 @@ use Money\Currencies\ISOCurrencies;
 use Money\Currency;
 use PHPUnit\Framework\TestCase;
 
+use function assert;
+
 class CurrencyValidatorTest extends TestCase
 {
-    /**
-     * @var CurrencyValidator
-     */
+    /** @var CurrencyValidator */
     private $validator;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->validator = new CurrencyValidator(new ISOCurrencies());
     }
 
-    public function testNonString() : void
+    public function testNonString(): void
     {
-        $this->assertFalse($this->validator->isValid(1));
-        $this->assertArrayHasKey(CurrencyValidator::INVALID_TYPE, $this->validator->getMessages());
+        self::assertFalse($this->validator->isValid(1));
+        self::assertArrayHasKey(CurrencyValidator::INVALID_TYPE, $this->validator->getMessages());
     }
 
-    public function invalidStringCodes() : array
+    /** @return array<string[]> */
+    public function invalidStringCodes(): array
     {
         return [
             ['a'], // Too Short
@@ -41,31 +43,33 @@ class CurrencyValidatorTest extends TestCase
     /**
      * @dataProvider invalidStringCodes
      */
-    public function testInvalidCode(string $code) : void
+    public function testInvalidCode(string $code): void
     {
-        $this->assertFalse($this->validator->isValid($code));
-        $this->assertArrayHasKey(CurrencyValidator::INVALID_CODE, $this->validator->getMessages());
+        self::assertFalse($this->validator->isValid($code));
+        self::assertArrayHasKey(CurrencyValidator::INVALID_CODE, $this->validator->getMessages());
     }
 
-    public function testCurrencyInstanceIsValid() : void
+    public function testCurrencyInstanceIsValid(): void
     {
-        $this->assertTrue($this->validator->isValid(new Currency('GBP')));
+        self::assertTrue($this->validator->isValid(new Currency('GBP')));
     }
 
-    public function testCurrencyInstanceMustBeInAllowableList() : void
+    public function testCurrencyInstanceMustBeInAllowableList(): void
     {
-        $this->assertFalse($this->validator->isValid(new Currency('ZZZ')));
-        $this->assertArrayHasKey(CurrencyValidator::CODE_NOT_ACCEPTABLE, $this->validator->getMessages());
-        $this->assertStringContainsString(
+        self::assertFalse($this->validator->isValid(new Currency('ZZZ')));
+        self::assertArrayHasKey(CurrencyValidator::CODE_NOT_ACCEPTABLE, $this->validator->getMessages());
+        self::assertStringContainsString(
             'The currency "ZZZ" is not available',
             $this->validator->getMessages()[CurrencyValidator::CODE_NOT_ACCEPTABLE]
         );
     }
 
-    public function validCodes() : iterable
+    /** @return iterable<string[]> */
+    public function validCodes(): iterable
     {
-        /** @var Currency $currency */
         foreach ((new ISOCurrencies())->getIterator() as $currency) {
+            assert($currency instanceof Currency);
+
             yield [$currency->getCode()];
         }
     }
@@ -73,16 +77,16 @@ class CurrencyValidatorTest extends TestCase
     /**
      * @dataProvider validCodes
      */
-    public function testValidCodes(string $code) : void
+    public function testValidCodes(string $code): void
     {
-        $this->assertTrue($this->validator->isValid($code));
+        self::assertTrue($this->validator->isValid($code));
     }
 
-    public function testCodeNotInListIsInvalid() : void
+    public function testCodeNotInListIsInvalid(): void
     {
-        $this->assertFalse($this->validator->isValid('ZZZ'));
-        $this->assertArrayHasKey(CurrencyValidator::CODE_NOT_ACCEPTABLE, $this->validator->getMessages());
-        $this->assertStringContainsString(
+        self::assertFalse($this->validator->isValid('ZZZ'));
+        self::assertArrayHasKey(CurrencyValidator::CODE_NOT_ACCEPTABLE, $this->validator->getMessages());
+        self::assertStringContainsString(
             'The currency "ZZZ" is not available',
             $this->validator->getMessages()[CurrencyValidator::CODE_NOT_ACCEPTABLE]
         );

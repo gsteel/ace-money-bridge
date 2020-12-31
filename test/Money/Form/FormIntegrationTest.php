@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ACETest\Money\Form;
@@ -10,15 +11,17 @@ use Laminas\Form\Form;
 use Laminas\Hydrator\ClassMethodsHydrator;
 use Money\Money;
 
+use function assert;
+
 class FormIntegrationTest extends TestCase
 {
-    public function testProgrammaticFormCreation() : void
+    public function testProgrammaticFormCreation(): void
     {
         $container = $this->getContainer();
         $forms = $container->get('FormElementManager');
 
-        /** @var Form $form */
         $form = $forms->get(Form::class);
+        assert($form instanceof Form);
         $form->setHydrator(new ClassMethodsHydrator());
         $form->add([
             'name' => 'amount',
@@ -38,37 +41,29 @@ class FormIntegrationTest extends TestCase
         $this->assertEquals(100, $money->getAmount());
     }
 
-    public function testElementOptionsAndAttributesAreProvidedToIndividualElements() : void
+    public function testElementOptionsAndAttributesAreProvidedToIndividualElements(): void
     {
         $container = $this->getContainer();
         $forms = $container->get('FormElementManager');
 
-        /** @var Form $form */
         $form = $forms->get(Form::class);
+        assert($form instanceof Form);
         $form->add([
             'name' => 'money',
             'type' => MoneyFieldset::class,
             'options' => [
                 'currency' => [
-                    'options' => [
-                        'label' => 'Currency Label',
-                    ],
-                    'attributes' => [
-                        'class' => 'c',
-                    ],
+                    'options' => ['label' => 'Currency Label'],
+                    'attributes' => ['class' => 'c'],
                 ],
                 'amount' => [
-                    'options' => [
-                        'label' => 'Amount Label',
-                    ],
-                    'attributes' => [
-                        'class' => 'a',
-                    ],
+                    'options' => ['label' => 'Amount Label'],
+                    'attributes' => ['class' => 'a'],
                 ],
             ],
         ]);
-        /** @var MoneyFieldset $fieldset */
         $fieldset = $form->get('money');
+        assert($fieldset instanceof MoneyFieldset);
         $this->assertInstanceOf(MoneyFieldset::class, $fieldset);
         $this->assertSame('Currency Label', $fieldset->currencyElement()->getLabel());
         $this->assertSame('Amount Label', $fieldset->amountElement()->getLabel());

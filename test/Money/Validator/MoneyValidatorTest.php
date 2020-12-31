@@ -1,9 +1,9 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ACETest\Money\Validator;
 
-use ACE\Money\Filter\ToMoney;
 use ACE\Money\Validator\CurrencyValidator;
 use ACE\Money\Validator\MoneyValidator;
 use Money\Currencies\ISOCurrencies;
@@ -16,7 +16,7 @@ class MoneyValidatorTest extends TestCase
     /** @var MoneyValidator */
     private $validator;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->validator = new MoneyValidator(
@@ -27,7 +27,7 @@ class MoneyValidatorTest extends TestCase
     }
 
     /** @return mixed[] */
-    public function validValues() : array
+    public function validValues(): array
     {
         return [
             ['1.00', 'GBP', 100, 'GBP'],
@@ -43,7 +43,7 @@ class MoneyValidatorTest extends TestCase
     }
 
     /** @return mixed[] */
-    public function invalidInput() : array
+    public function invalidInput(): array
     {
         return [
             [[]],
@@ -65,7 +65,7 @@ class MoneyValidatorTest extends TestCase
      *
      * @dataProvider validValues
      */
-    public function testValidValues($inputAmount, $inputCode, int $expectAmount, string $expectCode) : void
+    public function testValidValues($inputAmount, $inputCode, int $expectAmount, string $expectCode): void
     {
         $input = [
             'currency' => $inputCode,
@@ -81,14 +81,14 @@ class MoneyValidatorTest extends TestCase
      *
      * @dataProvider invalidInput
      */
-    public function testInvalidInput($input) : void
+    public function testInvalidInput($input): void
     {
         $this->assertFalse(
             $this->validator->isValid($input)
         );
     }
 
-    public function testMoneyInstanceWillBeValid() : void
+    public function testMoneyInstanceWillBeValid(): void
     {
         $input = new Money(100, new Currency('GBP'));
         $this->assertTrue(

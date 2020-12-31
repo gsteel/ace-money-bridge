@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ACETest\Money\Filter;
@@ -10,34 +11,48 @@ use stdClass;
 
 class CurrencyCodeToCurrencyFilterTest extends TestCase
 {
-
     /** @var CurrencyCodeToCurrencyFilter */
     private $filter;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->filter = new CurrencyCodeToCurrencyFilter();
     }
 
-    public function dataThatShouldNotBeFiltered() : array
+    /** @return mixed[] */
+    public function dataThatShouldNotBeFiltered(): array
     {
         return [
-            [''], [null], [0], [0.0], [[]], [new stdClass()],
-            ['a'], ['aa'], ['aaaa'], ['111'], [111], ['A12'], ['AA1'],
+            [''],
+            [null],
+            [0],
+            [0.0],
+            [[]],
+            [new stdClass()],
+            ['a'],
+            ['aa'],
+            ['aaaa'],
+            ['111'],
+            [111],
+            ['A12'],
+            ['AA1'],
         ];
     }
 
     /**
+     * @param mixed $value
+     *
      * @dataProvider dataThatShouldNotBeFiltered
      */
-    public function testUnfilteredValues($value) : void
+    public function testUnfilteredValues($value): void
     {
         $filtered = $this->filter->filter($value);
-        $this->assertSame($value, $filtered);
+        self::assertSame($value, $filtered);
     }
 
-    public function dataThatShouldBeFiltered() : array
+    /** @return mixed[] */
+    public function dataThatShouldBeFiltered(): array
     {
         return [
             ['GBP', 'GBP'],
@@ -50,17 +65,17 @@ class CurrencyCodeToCurrencyFilterTest extends TestCase
     /**
      * @dataProvider dataThatShouldBeFiltered
      */
-    public function testFilteredValues($value, $expect) : void
+    public function testFilteredValues(string $value, string $expect): void
     {
         $filtered = $this->filter->filter($value);
-        $this->assertInstanceOf(Currency::class, $filtered);
-        $this->assertSame($expect, $filtered->getCode());
+        self::assertInstanceOf(Currency::class, $filtered);
+        self::assertSame($expect, $filtered->getCode());
     }
 
-    public function testCurrencyInstancesAreReturnedAsIs() : void
+    public function testCurrencyInstancesAreReturnedAsIs(): void
     {
         $currency = new Currency('GBP');
         $filtered = $this->filter->filter($currency);
-        $this->assertSame($currency, $filtered);
+        self::assertSame($currency, $filtered);
     }
 }

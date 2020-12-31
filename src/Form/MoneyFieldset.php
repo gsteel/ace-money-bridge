@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ACE\Money\Form;
@@ -8,6 +9,7 @@ use Laminas\Form\ElementInterface;
 use Laminas\Form\Fieldset;
 use Money\Currency;
 use Money\Money;
+
 use function is_iterable;
 
 class MoneyFieldset extends Fieldset
@@ -35,34 +37,38 @@ class MoneyFieldset extends Fieldset
     }
 
     /** @inheritDoc */
-    public function setOptions($options) : self
+    public function setOptions($options): self
     {
         parent::setOptions($options);
         $currencyOptions = $this->getOption('currency')['options'] ?? null;
         if (is_iterable($currencyOptions)) {
             $this->currencyElement()->setOptions($currencyOptions);
         }
+
         $currencyAttributes = $this->getOption('currency')['attributes'] ?? null;
         if (is_iterable($currencyAttributes)) {
             $this->currencyElement()->setAttributes($currencyAttributes);
         }
+
         $amountOptions = $this->getOption('amount')['options'] ?? null;
         if (is_iterable($amountOptions)) {
             $this->amountElement()->setOptions($amountOptions);
         }
+
         $amountAttributes = $this->getOption('amount')['attributes'] ?? null;
         if (is_iterable($amountAttributes)) {
             $this->amountElement()->setAttributes($amountAttributes);
         }
+
         return $this;
     }
 
-    public function currencyElement() : ElementInterface
+    public function currencyElement(): ElementInterface
     {
         return $this->get('currency');
     }
 
-    public function amountElement() : ElementInterface
+    public function amountElement(): ElementInterface
     {
         return $this->get('amount');
     }

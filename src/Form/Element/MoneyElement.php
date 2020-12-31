@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ACE\Money\Form\Element;
@@ -14,6 +15,7 @@ use Laminas\InputFilter\InputProviderInterface;
 use Laminas\Stdlib\ArrayUtils;
 use Money\Money;
 use Traversable;
+
 use function is_array;
 use function sprintf;
 use function trim;
@@ -44,10 +46,12 @@ class MoneyElement extends Element implements InputProviderInterface, ElementPre
         if ($value instanceof Money) {
             $value = $this->hydrator->extract($value);
         }
+
         if (is_array($value) && isset($value['currency'], $value['amount'])) {
             $this->currency->setValue($value['currency']);
             $this->amount->setValue($value['amount']);
         }
+
         return $this;
     }
 
@@ -61,10 +65,7 @@ class MoneyElement extends Element implements InputProviderInterface, ElementPre
         ));
     }
 
-    /**
-     * @inheritDoc
-     */
-    public function prepareElement(FormInterface $form) : void
+    public function prepareElement(FormInterface $form): void
     {
         $name = $this->getName();
         $this->amount->setName($name . '[amount]');
@@ -74,25 +75,26 @@ class MoneyElement extends Element implements InputProviderInterface, ElementPre
     /**
      * @inheritDoc
      */
-    public function getInputSpecification() : array
+    public function getInputSpecification(): array
     {
         $spec = (new MoneyInputSpec())($this->hasAttribute('required'));
         $spec['name'] = $this->getName();
+
         return $spec;
     }
 
-    public function currencyElement() : CurrencyInput
+    public function currencyElement(): CurrencyInput
     {
         return $this->currency;
     }
 
-    public function amountElement() : MoneyInput
+    public function amountElement(): MoneyInput
     {
         return $this->amount;
     }
 
     /** @inheritDoc */
-    public function setOptions($options) : self
+    public function setOptions($options): self
     {
         parent::setOptions($options);
 
@@ -124,9 +126,10 @@ class MoneyElement extends Element implements InputProviderInterface, ElementPre
      *
      * @param mixed[] $currencyAttributes
      */
-    public function setCurrencyAttributes(array $currencyAttributes) : self
+    public function setCurrencyAttributes(array $currencyAttributes): self
     {
         $this->currency->setAttributes($currencyAttributes);
+
         return $this;
     }
 
@@ -135,9 +138,10 @@ class MoneyElement extends Element implements InputProviderInterface, ElementPre
      *
      * @param mixed[] $amountAttributes
      */
-    public function setAmountAttributes(array $amountAttributes) : self
+    public function setAmountAttributes(array $amountAttributes): self
     {
         $this->amount->setAttributes($amountAttributes);
+
         return $this;
     }
 
@@ -146,9 +150,10 @@ class MoneyElement extends Element implements InputProviderInterface, ElementPre
      *
      * @param mixed[] $currencyOptions
      */
-    public function setCurrencyOptions(array $currencyOptions) : self
+    public function setCurrencyOptions(array $currencyOptions): self
     {
         $this->currency->setOptions($currencyOptions);
+
         return $this;
     }
 
@@ -157,9 +162,10 @@ class MoneyElement extends Element implements InputProviderInterface, ElementPre
      *
      * @param mixed[] $amountOptions
      */
-    public function setAmountOptions(array $amountOptions) : self
+    public function setAmountOptions(array $amountOptions): self
     {
         $this->amount->setOptions($amountOptions);
+
         return $this;
     }
 }

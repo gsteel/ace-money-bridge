@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ACE\Money\Container;
@@ -12,13 +13,16 @@ use Laminas\Hydrator\HydratorPluginManager;
 use Money\Currency;
 use Psr\Container\ContainerInterface;
 
+use function assert;
+
 class MoneyFieldsetFactory
 {
-    public function __invoke(ContainerInterface $container) : MoneyFieldset
+    public function __invoke(ContainerInterface $container): MoneyFieldset
     {
-        /** @var FormElementManagerV3Polyfill $formManager */
         $formManager = $container->get('FormElementManager');
+        assert($formManager instanceof FormElementManagerV3Polyfill);
         $hydrators = $container->get(HydratorPluginManager::class);
+
         return new MoneyFieldset(
             $formManager->get(CurrencyElement::class),
             $formManager->get(Money::class),

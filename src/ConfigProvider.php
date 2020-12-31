@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ACE\Money;
@@ -8,7 +9,7 @@ use Money as PHPMoney;
 class ConfigProvider
 {
     /** @return mixed[] */
-    public function __invoke() : array
+    public function __invoke(): array
     {
         return [
             'defaultCurrencyCode' => 'GBP',
@@ -20,7 +21,7 @@ class ConfigProvider
     }
 
     /** @return mixed[] */
-    private function formElementConfig() : array
+    private function formElementConfig(): array
     {
         return [
             'factories' => [
@@ -32,7 +33,7 @@ class ConfigProvider
     }
 
     /** @return mixed[] */
-    private function hydratorConfig() : array
+    private function hydratorConfig(): array
     {
         return [
             'factories' => [
@@ -42,7 +43,7 @@ class ConfigProvider
     }
 
     /** @return mixed[] */
-    private function dependencyConfig() : array
+    private function dependencyConfig(): array
     {
         return [
             'factories' => [
@@ -53,7 +54,7 @@ class ConfigProvider
     }
 
     /** @return mixed[] */
-    private function validatorConfig() : array
+    private function validatorConfig(): array
     {
         return [
             'factories' => [

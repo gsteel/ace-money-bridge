@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ACETest\Money\Form;
@@ -16,15 +17,14 @@ use Money\Money;
 use Money\Parser\DecimalMoneyParser;
 use PHPUnit\Framework\TestCase;
 
+use function assert;
+
 class MoneyFieldsetTest extends TestCase
 {
-
-    /**
-     * @var MoneyHydrator
-     */
+    /** @var MoneyHydrator */
     private $hydrator;
 
-    protected function setUp() : void
+    protected function setUp(): void
     {
         parent::setUp();
         $list = new ISOCurrencies();
@@ -34,7 +34,7 @@ class MoneyFieldsetTest extends TestCase
         );
     }
 
-    public function testConstructorAddsFormElements() : void
+    public function testConstructorAddsFormElements(): void
     {
         $currency = new Text();
         $amount = new Text();
@@ -45,23 +45,25 @@ class MoneyFieldsetTest extends TestCase
         $this->assertContains($amount, $fieldset->getElements());
     }
 
-    private function fieldset() : MoneyFieldset
+    private function fieldset(): MoneyFieldset
     {
         $currency = new Text();
         $amount = new Text();
+
         return new MoneyFieldset($currency, $amount, $this->hydrator, new Currency('GBP'));
     }
 
-    private function form() : Form
+    private function form(): Form
     {
         $form = new Form();
         $fieldset = $this->fieldset();
         $fieldset->setName('amount');
         $form->add($fieldset);
+
         return $form;
     }
 
-    public function testFieldsetBinding() : void
+    public function testFieldsetBinding(): void
     {
         $form = $this->form();
         $form->setHydrator(new ClassMethodsHydrator());
@@ -73,14 +75,14 @@ class MoneyFieldsetTest extends TestCase
         $value = $form->getData();
         $this->assertObjectHasAttribute('amount', $value);
         $this->assertInstanceOf(Money::class, $value->amount);
-        /** @var Money $moneyProperty */
         $moneyProperty = $value->amount;
+        assert($moneyProperty instanceof Money);
         $this->assertNotSame($money, $moneyProperty);
         $this->assertEquals('GBP', $moneyProperty->getCurrency()->getCode());
         $this->assertEquals(2000, $moneyProperty->getAmount());
     }
 
-    public function testValidatedFormValuesAreReflectedInObject() : void
+    public function testValidatedFormValuesAreReflectedInObject(): void
     {
         $form = $this->form();
         $form->setHydrator(new ClassMethodsHydrator());
@@ -95,20 +97,20 @@ class MoneyFieldsetTest extends TestCase
         $this->assertTrue($form->isValid());
         $object = $form->getData();
         $this->assertInstanceOf(Money::class, $object->amount);
-        /** @var Money $moneyProperty */
         $moneyProperty = $object->amount;
+        assert($moneyProperty instanceof Money);
         $this->assertEquals('ZAR', $moneyProperty->getCurrency()->getCode());
         $this->assertEquals(12345, $moneyProperty->getAmount());
     }
 
-    public function testRetrievalOfCurrencyElement() : void
+    public function testRetrievalOfCurrencyElement(): void
     {
         $fieldset = $this->fieldset();
         $currency = $fieldset->currencyElement();
         $this->assertSame('currency', $currency->getName());
     }
 
-    public function testRetrievalOfAmountElement() : void
+    public function testRetrievalOfAmountElement(): void
     {
         $fieldset = $this->fieldset();
         $amount = $fieldset->amountElement();

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ACETest\Money\Form\Element;
@@ -8,18 +9,20 @@ use ACETest\Money\TestCase;
 use Laminas\ServiceManager\AbstractPluginManager;
 use Money\Currencies\ISOCurrencies;
 
+use function assert;
+
 class CurrencySelectTest extends TestCase
 {
-    public function testSelectContainsExpectedOptions() : void
+    public function testSelectContainsExpectedOptions(): void
     {
         $select = new CurrencySelect(new ISOCurrencies());
         $this->assertContains('GBP', $select->getValueOptions());
     }
 
-    public function testElementCanBeRetrievedFromFormManager() : void
+    public function testElementCanBeRetrievedFromFormManager(): void
     {
-        /** @var AbstractPluginManager $forms */
         $forms = $this->getContainer()->get('FormElementManager');
+        assert($forms instanceof AbstractPluginManager);
         $element = $forms->get(CurrencySelect::class);
         $this->assertInstanceOf(CurrencySelect::class, $element);
     }

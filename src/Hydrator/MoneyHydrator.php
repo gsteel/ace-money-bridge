@@ -1,13 +1,15 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ACE\Money\Hydrator;
 
-use ACE\Money\Exception;
+use ACE\Money\Exception\InvalidArgumentException;
 use Laminas\Hydrator\HydratorInterface;
 use Money\Money;
 use Money\MoneyFormatter;
 use Money\MoneyParser;
+
 use function array_key_exists;
 use function get_class;
 use function gettype;
@@ -29,13 +31,13 @@ class MoneyHydrator implements HydratorInterface
     }
 
     /** @inheritDoc */
-    public function extract($object) : array
+    public function extract($object): array
     {
-        $this->assertMoneyInstance($object);
-        /** @var Money $object */
+        $money = $this->assertMoneyInstance($object);
+
         return [
-            'currency' => $object->getCurrency()->getCode(),
-            'amount' => $this->formatter->format($object),
+            'currency' => $money->getCurrency()->getCode(),
+            'amount' => $this->formatter->format($money),
         ];
     }
 
@@ -43,31 +45,35 @@ class MoneyHydrator implements HydratorInterface
     public function hydrate(array $data, $object = null)
     {
         $this->assertExpectedArrayStructure($data);
+
         return $this->parser->parse($data['amount'], $data['currency']);
     }
 
     /** @param mixed $object */
-    private function assertMoneyInstance($object) : void
+    private function assertMoneyInstance($object): Money
     {
         if (! $object instanceof Money) {
-            throw new Exception\InvalidArgumentException(sprintf(
+            throw new InvalidArgumentException(sprintf(
                 'Expected an instance of %s but received %s',
                 Money::class,
                 is_object($object) ? get_class($object) : gettype($object)
             ));
         }
+
+        return $object;
     }
 
     /** @param mixed[] $data */
-    private function assertExpectedArrayStructure(array $data) : void
+    private function assertExpectedArrayStructure(array $data): void
     {
         if (! array_key_exists('currency', $data)) {
-            throw new Exception\InvalidArgumentException(
+            throw new InvalidArgumentException(
                 'Expected the array key \'currency\' to be present in the input array'
             );
         }
+
         if (! array_key_exists('amount', $data)) {
-            throw new Exception\InvalidArgumentException(
+            throw new InvalidArgumentException(
                 'Expected the array key \'amount\' to be present in the input array'
             );
         }

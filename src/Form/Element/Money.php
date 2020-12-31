@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ACE\Money\Form\Element;
@@ -10,7 +11,7 @@ use Laminas\Validator\Regex;
 class Money extends NumberElement
 {
     /** @inheritDoc */
-    public function getInputSpecification() : array
+    public function getInputSpecification(): array
     {
         return [
             'name' => $this->getName(),
@@ -34,7 +35,7 @@ class Money extends NumberElement
                 'toString' => [
                     'name' => Filter\Callback::class,
                     'options' => [
-                        'callback' => static function ($value) : string {
+                        'callback' => static function ($value): string {
                             return (string) $value;
                         },
                     ],

@@ -1,10 +1,12 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ACE\Money\Validator;
 
 use Laminas\Validator\AbstractValidator;
 use Money\Money;
+
 use function is_array;
 use function is_numeric;
 
@@ -35,27 +37,36 @@ class MoneyValidator extends AbstractValidator
     /**
      * @inheritDoc
      */
-    public function isValid($value) : bool
+    public function isValid($value): bool
     {
         if ($value instanceof Money) {
             return true;
         }
+
         if (! is_array($value)) {
             $this->error(self::NOT_ARRAY);
+
             return false;
         }
+
         if (! isset($value['amount'], $value['currency'])) {
             $this->error(self::MISSING_KEYS);
+
             return false;
         }
+
         if (! $this->currencyValidator->isValid($value['currency'])) {
             $this->error(self::INVALID_CURRENCY);
+
             return false;
         }
+
         if (! is_numeric($value['amount'])) {
             $this->error(self::NOT_NUMERIC);
+
             return false;
         }
+
         return true;
     }
 }

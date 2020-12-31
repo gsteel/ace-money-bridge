@@ -1,19 +1,20 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ACETest\Money;
 
 use ACE;
+use Laminas;
 use Laminas\ConfigAggregator\ConfigAggregator;
 use Laminas\ServiceManager\ServiceManager;
 use PHPUnit\Framework\TestCase as PHPUnitTestCase;
 use Psr\Container\ContainerInterface;
-use Laminas;
 
 class TestCase extends PHPUnitTestCase
 {
-
-    protected function defaultConfiguration() : array
+    /** @return mixed[] */
+    protected function defaultConfiguration(): array
     {
         $aggregator = new ConfigAggregator([
             Laminas\I18n\ConfigProvider::class,
@@ -24,14 +25,16 @@ class TestCase extends PHPUnitTestCase
             Laminas\Validator\ConfigProvider::class,
             ACE\Money\ConfigProvider::class,
         ]);
+
         return $aggregator->getMergedConfig();
     }
 
-    protected function getContainer() : ContainerInterface
+    protected function getContainer(): ContainerInterface
     {
         $config = $this->defaultConfiguration();
         $dependencies = $config['dependencies'];
         $dependencies['services']['config'] = $config;
+
         return new ServiceManager($dependencies);
     }
 }

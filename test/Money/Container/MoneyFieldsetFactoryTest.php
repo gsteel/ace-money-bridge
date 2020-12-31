@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ACETest\Money\Container;
@@ -9,21 +10,21 @@ use Money\Currency;
 
 class MoneyFieldsetFactoryTest extends TestCase
 {
-
-    private function getFieldsetFromContainer() : MoneyFieldset
+    private function getFieldsetFromContainer(): MoneyFieldset
     {
         $container = $this->getContainer();
         $forms = $container->get('FormElementManager');
+
         return $forms->get(MoneyFieldset::class);
     }
 
-    public function testFieldsetCanBeRetrievedFromFormManager() : void
+    public function testFieldsetCanBeRetrievedFromFormManager(): void
     {
         $fieldset = $this->getFieldsetFromContainer();
         $this->assertInstanceOf(MoneyFieldset::class, $fieldset);
     }
 
-    public function testDefaultCurrencyIsPopulatedAsCurrencyValue() : void
+    public function testDefaultCurrencyIsPopulatedAsCurrencyValue(): void
     {
         $fieldset = $this->getFieldsetFromContainer();
         $default = $this->getContainer()->get(Currency::class);

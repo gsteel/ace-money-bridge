@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ACE\Money\Container;
@@ -6,11 +7,12 @@ namespace ACE\Money\Container;
 use ACE\Money\Exception\ConfigurationException;
 use Money\Currency;
 use Psr\Container\ContainerInterface;
+
 use function is_string;
 
 class DefaultCurrencyFactory
 {
-    public function __invoke(ContainerInterface $container) : Currency
+    public function __invoke(ContainerInterface $container): Currency
     {
         $config = $container->get('config');
         $code = $config['defaultCurrencyCode'] ?? null;
@@ -20,6 +22,7 @@ class DefaultCurrencyFactory
                 'the default currency code to use when one is otherwise unavailable'
             );
         }
+
         return new Currency($config['defaultCurrencyCode']);
     }
 }
