@@ -6,6 +6,7 @@ namespace ACE\Money\Hydrator;
 
 use ACE\Money\Exception\InvalidArgumentException;
 use Laminas\Hydrator\HydratorInterface;
+use Money\Currency;
 use Money\Money;
 use Money\MoneyFormatter;
 use Money\MoneyParser;
@@ -46,7 +47,7 @@ class MoneyHydrator implements HydratorInterface
     {
         $this->assertExpectedArrayStructure($data);
 
-        return $this->parser->parse($data['amount'], $data['currency']);
+        return $this->parser->parse($data['amount'], new Currency($data['currency']));
     }
 
     /** @param mixed $object */
