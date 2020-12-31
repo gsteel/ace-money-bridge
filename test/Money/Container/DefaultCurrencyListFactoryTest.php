@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ACETest\Money\Container;
@@ -10,11 +11,11 @@ use Psr\Container\ContainerInterface;
 
 class DefaultCurrencyListFactoryTest extends TestCase
 {
-    public function testFactoryReturnsISOCurrenciesByDefault() : void
+    public function testFactoryReturnsISOCurrenciesByDefault(): void
     {
-        $container = $this->prophesize(ContainerInterface::class)->reveal();
+        $container = $this->createMock(ContainerInterface::class);
         $factory = new DefaultCurrencyListFactory();
         $list = $factory($container);
-        $this->assertInstanceOf(ISOCurrencies::class, $list);
+        self::assertInstanceOf(ISOCurrencies::class, $list);
     }
 }

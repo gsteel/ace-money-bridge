@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ACETest\Money\Container;
@@ -10,22 +11,28 @@ use Psr\Container\ContainerInterface;
 
 class DefaultCurrencyFactoryTest extends TestCase
 {
-    public function testExceptionThrownWhenNoDefaultCodeIsAvailable() : void
+    public function testExceptionThrownWhenNoDefaultCodeIsAvailable(): void
     {
-        $container = $this->prophesize(ContainerInterface::class);
-        $container->get('config')->willReturn([]);
+        $container = $this->createMock(ContainerInterface::class);
+        $container->expects(self::once())
+            ->method('get')
+            ->with('config')
+            ->willReturn([]);
         $factory = new DefaultCurrencyFactory();
         $this->expectException(ConfigurationException::class);
         $this->expectExceptionMessage('Configuration should have a key "defaultCurrencyCode"');
-        $factory($container->reveal());
+        $factory($container);
     }
 
-    public function testCurrencyIsReturnedWhenCodeIsAvailable() : void
+    public function testCurrencyIsReturnedWhenCodeIsAvailable(): void
     {
-        $container = $this->prophesize(ContainerInterface::class);
-        $container->get('config')->willReturn(['defaultCurrencyCode' => 'CAD']);
+        $container = $this->createMock(ContainerInterface::class);
+        $container->expects(self::once())
+            ->method('get')
+            ->with('config')
+            ->willReturn(['defaultCurrencyCode' => 'CAD']);
         $factory = new DefaultCurrencyFactory();
-        $currency = $factory($container->reveal());
-        $this->assertEquals('CAD', $currency->getCode());
+        $currency = $factory($container);
+        self::assertEquals('CAD', $currency->getCode());
     }
 }

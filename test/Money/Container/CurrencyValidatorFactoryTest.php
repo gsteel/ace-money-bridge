@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ACETest\Money\Container;
@@ -10,12 +11,15 @@ use Psr\Container\ContainerInterface;
 
 class CurrencyValidatorFactoryTest extends TestCase
 {
-    public function testFactory() : void
+    public function testFactory(): void
     {
-        $container = $this->prophesize(ContainerInterface::class);
-        $container->get(Currencies::class)->willReturn(new Currencies\ISOCurrencies());
+        $container = $this->createMock(ContainerInterface::class);
+        $container->expects(self::once())
+            ->method('get')
+            ->with(Currencies::class)
+            ->willReturn(new Currencies\ISOCurrencies());
         $factory = new CurrencyValidatorFactory();
-        $factory($container->reveal());
+        $factory($container);
         $this->addToAssertionCount(1);
     }
 }
