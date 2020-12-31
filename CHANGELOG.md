@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 1.1.0 - 2020-12-31
+
+### Added
+
+- Nothing.
+
+### Changed
+
+- Updated PHPUnit configuration and removed usage of Prophecy in favour of PHPUnit mocks.
+- Added Doctrine coding standard and updated code style to suit
+- Miscellaneous house-keeping
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Passing deprecated string argument to money parser's parse method when it should be a currency instance _(In the money hydrator)_.
+
 ## 1.0.0 - 2020-03-04
 
 ### Added
