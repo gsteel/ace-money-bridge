@@ -8,19 +8,16 @@ use ACE\Money\Form\Element\Currency as CurrencyElement;
 use ACE\Money\Form\Element\Money;
 use ACE\Money\Form\MoneyFieldset;
 use ACE\Money\Hydrator\MoneyHydrator;
-use Laminas\Form\FormElementManager\FormElementManagerV3Polyfill;
+use Laminas\Form\FormElementManager;
 use Laminas\Hydrator\HydratorPluginManager;
 use Money\Currency;
 use Psr\Container\ContainerInterface;
-
-use function assert;
 
 class MoneyFieldsetFactory
 {
     public function __invoke(ContainerInterface $container): MoneyFieldset
     {
-        $formManager = $container->get('FormElementManager');
-        assert($formManager instanceof FormElementManagerV3Polyfill);
+        $formManager = $container->get(FormElementManager::class);
         $hydrators = $container->get(HydratorPluginManager::class);
 
         return new MoneyFieldset(
