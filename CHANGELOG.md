@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 1.2.0 - 2021-03-22
+
+### Added
+
+- Nothing.
+
+### Changed
+
+- Bumps `laminas/laminas-form` to 2.16.x which happily introduces the form element manager as a concrete class deprecating the old polyfills.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Nothing.
+
 ## 1.1.0 - 2020-12-31
 
 ### Added
